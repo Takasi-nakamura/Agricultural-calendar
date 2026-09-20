@@ -12,7 +12,7 @@ const weatherIcon=(code:number)=>code===0||code===1?<Sun size={18}/>:code<=3?<Cl
 function App(){
  const now=new Date(); const [month,setMonth]=useState(new Date(now.getFullYear(),now.getMonth(),1));
  const [selected,setSelected]=useState(key(now)); const [view,setView]=useState<'calendar'|'list'>('calendar');
- const [todos,setTodos]=useState<Todo[]>(()=>JSON.parse(localStorage.getItem('agri-todos')||'[]'));
+ const [todos,setTodos]=useState<Todo[]>(()=>{try{const v=JSON.parse(localStorage.getItem('agri-todos')||'[]');return Array.isArray(v)?v:[]}catch{return[]}});
  const saved=(()=>{try{return JSON.parse(localStorage.getItem('agri-settings')||'null')}catch{return null}})();
  const [weather,setWeather]=useState<Weather[]>([]); const [longWeather,setLongWeather]=useState<LongWeather[]>([]); const [place,setPlace]=useState(saved?.place||'宇都宮市');
  const [lat,setLat]=useState(Number(saved?.lat)||36.5658); const [lon,setLon]=useState(Number(saved?.lon)||139.8836); const [loading,setLoading]=useState(false);
